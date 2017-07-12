@@ -1,4 +1,6 @@
 class Game {
+  public final int MAX_MISSES = 7;
+
   private String answer;
   private String hits;
   private String misses;
@@ -21,5 +23,22 @@ class Game {
     return isHit;
   }
 
+  public  int getRemainigTries() {
+    return MAX_MISSES - misses.length() ;
+
+  }
+
+  public String currentProgress() {
+    String progress = "";
+    for (char letter : answer.toCharArray()) {
+      if (hits.indexOf(letter) != -1) {
+          progress += letter;
+      } else {
+          progress += '-';
+      }
+    }
+    return progress;
+
+  }
 
 }
