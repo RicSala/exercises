@@ -6,17 +6,25 @@ class Game {
   private String misses;
 
   public Game(String answer) {
-    this.answer = answer; //así evitamos que colisionen las variables
+    this.answer = answer.toLowerCase(); //así evitamos que colisionen las variables
     hits = ""; //inicializa la variable hits a "" --> Acabamos de empezar aún no hay hits
     misses = "";  //inicializa la variable misses a "" --> idem
 
   }
 
-  public boolean applyGuess(char letter) {
-
+  private char normalizeGuess(char letter) {
+    if (!Character.isLetter(letter)) {
+      throw new IllegalArgumentException("Debes introducir una letra!");
+    }
     if (misses.indexOf(letter) != -1 || hits.indexOf(letter) != -1) {
       throw new IllegalArgumentException(letter + " has already been guessed.");
     }
+    letter = Character.toLowerCase(letter);
+    return letter;
+  }
+
+  public boolean applyGuess(char letter) {
+    letter= normalizeGuess(letter); //No necesito ponerle nada delante? --> no porque es un método de esta misma clase, para qué decirle Game.normlize.... CHEQUEAR FERRAN
 
     boolean isHit = ( answer.indexOf(letter) != -1 );
     if (isHit) {

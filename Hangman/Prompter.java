@@ -15,18 +15,23 @@ class Prompter {
 
 
   public boolean promptForGuess() { //RECUERDA: EN EL PROMPT NO VA LÓGICA.
-    boolean isHit = false;
-
     Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter a letter: ");
-    String guessInput = scanner.nextLine();
-    char guess = guessInput.charAt(0); //Básicamente le estamos diciendo que solo considere el primero.
+    boolean isHit = false;
+    boolean isAceptable = false;
 
-    try {
-      isHit = game.applyGuess(guess);
-    } catch(IllegalArgumentException iae) {
-      System.out.println(iae.getMessage());
-    }
+    do {
+      System.out.print("Enter a letter: ");
+      String guessInput = scanner.nextLine();
+      char guess = guessInput.charAt(0); //Básicamente le estamos diciendo que solo considere el primero.
+
+      try {
+        isHit = game.applyGuess(guess);
+        isAceptable = true;
+      } catch(IllegalArgumentException iae) {
+        System.out.println(iae.getMessage());
+      }
+    } while (!isAceptable);
+
     return isHit;
   }
 
