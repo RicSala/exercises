@@ -22,10 +22,9 @@ class Prompter {
     do {
       System.out.print("Enter a letter: ");
       String guessInput = scanner.nextLine();
-      char guess = guessInput.charAt(0); //Básicamente le estamos diciendo que solo considere el primero.
 
       try {
-        isHit = game.applyGuess(guess);
+        isHit = game.applyGuess(guessInput);
         isAceptable = true;
       } catch(IllegalArgumentException iae) {
         System.out.println(iae.getMessage());

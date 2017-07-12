@@ -13,7 +13,7 @@ class Game {
   }
 
   private char normalizeGuess(char letter) {
-    if (!Character.isLetter(letter)) {
+    if (!Character.isLetter(letter )) {
       throw new IllegalArgumentException("Debes introducir una letra!");
     }
     if (misses.indexOf(letter) != -1 || hits.indexOf(letter) != -1) {
@@ -21,6 +21,13 @@ class Game {
     }
     letter = Character.toLowerCase(letter);
     return letter;
+  }
+
+  public boolean applyGuess(String guess) {
+    if (guess.length() == 0) {
+      throw new IllegalArgumentException("Debes introducir algo!!!");
+    }
+    return applyGuess(guess.charAt(0));
   }
 
   public boolean applyGuess(char letter) {
