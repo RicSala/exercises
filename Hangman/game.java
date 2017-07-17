@@ -1,9 +1,11 @@
-class Game {
+public class Game {
   public final int MAX_MISSES = 7;
 
   private String answer;
   private String hits;
   private String misses;
+
+
 
   public Game(String answer) {
     this.answer = answer.toLowerCase(); //así evitamos que colisionen las variables
@@ -11,6 +13,8 @@ class Game {
     misses = "";  //inicializa la variable misses a "" --> idem
 
   }
+
+
 
   private char normalizeGuess(char letter) {
     if (!Character.isLetter(letter )) {
@@ -23,12 +27,17 @@ class Game {
     return letter;
   }
 
+
+
   public boolean applyGuess(String guess) {
     if (guess.length() == 0) {
       throw new IllegalArgumentException("Debes introducir algo!!!");
     }
     return applyGuess(guess.charAt(0));
   }
+
+
+
 
   public boolean applyGuess(char letter) {
     letter= normalizeGuess(letter); //No necesito ponerle nada delante? --> no porque es un método de esta misma clase, para qué decirle Game.normlize.... CHEQUEAR FERRAN
@@ -47,6 +56,19 @@ class Game {
     return MAX_MISSES - misses.length() ;
 
   }
+
+
+
+
+  public boolean winner() {
+    boolean win = false;
+    if (currentProgress().indexOf('-') == -1) {
+      win = true;
+    }
+    return win;
+  }
+
+  
 
   public String currentProgress() {
     String progress = "";
