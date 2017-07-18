@@ -6,11 +6,9 @@ ANTES DE ASIGNARLA A UNA FRASE, SE PODRIA MEJORAR MUCHO.
 */
 
 
-  public String  textToDivide;
   Integer numberOfLines;
 
-  public Logic (String textToDivide, Integer numberOfLines) {
-    this.textToDivide = textToDivide;
+  public Logic (Integer numberOfLines) {
     this.numberOfLines = numberOfLines;
 
   }
@@ -22,33 +20,37 @@ ANTES DE ASIGNARLA A UNA FRASE, SE PODRIA MEJORAR MUCHO.
 
     //ME GUSTARIA DIVIDIRLA EN MAS FUNCIONES, PERO COMO "ITERO" DENTRO DE UNA ITERACION Y LE PASO EL INDICE A LA DE FUERA?
 
-    Double scrappedWeight = 0.0; //LO HAGO ASi PORQUE NO VEO LA FORMA DE INTEREARR DENTRO DE UN LOOP CONTANDO CADA VUELTA EN EL LOOP EXTERNO, ES UN APAÑO
 
-    Double positionOfSplittedText;
-    Integer positionOfSplittedTextInt;
-    String[] dividedInWordsText = separateWords(textToDivide);
+    // calculate the weight per line
 
-    Double realWeight = countLenght(textToDivide); // - (numberOfLines - 1) * countLenght(" ");
+    final String[] words = separateWords(text);
+
+    final double realWeight = countLenght(text) - (numberOfLines - 1) * countLenght(" ");
+
     // System.out.println(String.valueOf(realWeight));
-    Double weigthPerLine = realWeight / numberOfLines;
+    final double weigthPerLine = realWeight / numberOfLines;
+
+
+
+
     String[] equalLines = new String[numberOfLines];
 
-    for (int i = 0; i < dividedInWordsText.length; i++) {
+    double scrappedWeight = 0.0; //LO HAGO ASi PORQUE NO VEO LA FORMA DE INTEREARR DENTRO DE UN LOOP CONTANDO CADA VUELTA EN EL LOOP EXTERNO, ES UN APAÑO
 
-      positionOfSplittedText = (scrappedWeight / weigthPerLine); // OJO ÚLTIMO NÚMERO!  por que tengo que hacer estos dos pasos tontos?? No me deja añadirlo en cola!!!
-      positionOfSplittedTextInt = positionOfSplittedText.intValue();
+    int lineIndex = 0;
+    equalLines[0] = "";
 
-      if ( equalLines[positionOfSplittedTextInt] == null ) { //Hay alguna otra forma de evitar tener que hacer esta linea? se entiende mal el codigo y es añadir por añadir...
-      equalLines[positionOfSplittedTextInt]= dividedInWordsText[i];
-      }
-      else {
-      equalLines[positionOfSplittedTextInt]+= dividedInWordsText[i];
-      }
 
-      scrappedWeight += countLenght(dividedInWordsText[i]);
+    for (String word : words) {
+    //for (int i = 0; i < words.length; i++) {
+      //String word = words[i];
 
-      if (i < dividedInWordsText.length - 1) { //antes me salía un out of bounds porque estaba añadiendo un espacio al final de la frase, lo cual hacía que se fuese al siguiente, que no existe...
-        equalLines[positionOfSplittedTextInt]+= " ";
+      equalLines[lineIndex] += word;
+
+      scrappedWeight += countLenght(word);
+
+      if (i < words.length - 1) { //antes me salía un out of bounds porque estaba añadiendo un espacio al final de la frase, lo cual hacía que se fuese al siguiente, que no existe...
+        equalLines[lineIndex]+= " ";
         scrappedWeight += countLenght(" ");
       }
     }
@@ -71,10 +73,10 @@ ANTES DE ASIGNARLA A UNA FRASE, SE PODRIA MEJORAR MUCHO.
   //
   // }
 
-  public String[] separateWords(String textToDivide) {
+  public String[] separateWords(String text) {
   // FUNCTION:  Given a text, it returns an String array with separate words
   //           Punctuation is considered part of the word
-    String[] wordsArray = textToDivide.split(" "); //LO HAGO ASI PORQUE NO TENGO CLARO QUE ME DEVOLVERIA...
+    String[] wordsArray = text.split(" "); //LO HAGO ASI PORQUE NO TENGO CLARO QUE ME DEVOLVERIA...
     return wordsArray;
   }
 

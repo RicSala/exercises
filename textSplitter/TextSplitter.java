@@ -2,19 +2,16 @@ public class TextSplitter {
 
   public static void main(String[] args) {
 
-    String textToDivide;
-    Integer numberOfStrings;
-    String[] dividedText;
-
     //Creo objeto prompter para poder utilizar sus métodos. ¿Podria haberlo hecho sin prompter si fuesen static?
 
     Prompter prompter = new Prompter();
 
-    textToDivide = prompter.askForString(); //Solicito texto a dividir y lo asigno
-    numberOfStrings = prompter.askForNumberOfLines(); //Idem numero de lineas deseadas
-    Logic logic = new Logic(textToDivide, numberOfStrings); //creo nuevo objeto logica. misma pregunta que arriba.
+    String textToDivide = prompter.askForString(); //Solicito texto a dividir y lo asigno
+    Integer numberOfStrings = prompter.askForNumberOfLines(); //Idem numero de lineas deseadas
 
-    dividedText= logic.divideText(textToDivide); //ejecuto...me da la sensacion de que le estoy pasando el argumento dos veces...¿que difererncia hay entre dejar las funciones con parametros o que coja como parametros propiedades del objeto?
+    Logic logic = new Logic(numberOfStrings); //creo nuevo objeto logica. misma pregunta que arriba.
+    String[] dividedText = logic.divideText(textToDivide); //ejecuto...me da la sensacion de que le estoy pasando el argumento dos veces...¿que difererncia hay entre dejar las funciones con parametros o que coja como parametros propiedades del objeto?
+
     prompter.showResult(dividedText);
 
 
