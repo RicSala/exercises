@@ -12,11 +12,11 @@ public class Logic {
 
   // Map<String, String> placeholdersAndValues = new Hasmap<String, String>;
 
-  public static String cleanText(String text, String subString){
-    //Deletes subString from String and returns the new String.
-
-    return text.replace(subString, "");
-  }
+  // public static String cleanText(String text, String subString){
+  //   //Deletes subString from String and returns the new String.
+  //
+  //   return text.replace(subString, "");
+  // }
 
   public static String createCustomhtml (String template, String[] separators) {
     //Main function: Given the string template and a String[] of separators {opener, closer}
@@ -45,11 +45,11 @@ public class Logic {
 
     for (String key: coordinates.keySet()) {
       //clean the placeholder name to show it to the user (a.k.a: eliminates marks)
-      String placeholderName = cleanText(key, opener);
-      placeholderName = cleanText(placeholderName, closer);
+      // String placeholderName = cleanText(key, opener);
+      // placeholderName = cleanText(placeholderName, closer);
 
       //get the user value for that placeholder and put the pair (key, value) in the Map
-      String value = Prompter.getValue(placeholderName);
+      String value = Prompter.getValue(key);
       placeholdersAndValues.put(key, value);
 
     }
@@ -66,7 +66,10 @@ public class Logic {
 
     for (String placeHolder: listKeysAndValues.keySet() ) {
       customizedString = customizedString.replace(placeHolder, listKeysAndValues.get(placeHolder));
+      // System.out.println("\\{\\{");
     }
+    customizedString = customizedString.replace("{{","");
+    customizedString = customizedString.replace("}}","");
     return customizedString;
   }
 
@@ -98,7 +101,7 @@ public class Logic {
 
     for (int i = 0; i < openerCoordinates.size(); i++) {
       Integer[] coordinate = {openerCoordinates.get(i), closerCoordinates.get(i)}; //create coordinate pairs
-      String coordinateName = template.substring(openerCoordinates.get(i), closerCoordinates.get(i)+closer.length()); //get coordinate name
+      String coordinateName = template.substring(openerCoordinates.get(i)+closer.length(), closerCoordinates.get(i)); //get coordinate name
       coordinates.put(coordinateName, coordinate);
     }
 
